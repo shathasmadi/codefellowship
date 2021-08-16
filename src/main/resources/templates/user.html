@@ -8,11 +8,13 @@
 <header>
 
 </header>
-<p th:text="${user.username}">User Name</p>
-<p th:text="${user.firstName}">First Name</p>
-<p th:text="${user.lastName}">Last Name</p>
-<p th:text="${user.dateOfBirth}">Date Of Birth</p>
-<p th:text="${user.bio}">Bio</p>
+<p th:text="${username}"></p>
+
+<p>User Name: <span th:text="${user.username}"></span></p>
+<p>First Name: <span th:text="${user.firstName}"></span></p>
+<p>Last Name: <span th:text="${user.lastName}"></span></p>
+<p>Date Of Birth: <span th:text="${user.dateOfBirth}"></span></p>
+<p>Bio: <span th:text="${user.bio}"></span></p>
 
 </body>
 </html>

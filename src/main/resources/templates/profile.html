@@ -1,10 +1,28 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>$Title$</title>
+    <meta charset="UTF-8">
+    <title>Title</title>
 </head>
 <body>
-$END$
+<p th:text="${username}"></p>
+
+<p>User Name: <span th:text="${user.username}"></span></p>
+<p>First Name: <span th:text="${user.firstName}"></span></p>
+<p>Last Name: <span th:text="${user.lastName}"></span></p>
+<p>Date Of Birth: <span th:text="${user.dateOfBirth}"></span></p>
+<p>Bio: <span th:text="${user.bio}"></span></p>
+
+
+<form action="/post" method="POST">
+    <textarea name="body" id="body"></textarea>
+    <input type="submit" value="submit"/>
+</form>
+<div th:each="post: ${user.posts}">
+
+    <p th:text="${post.body}"></p>
+    <p th:text="${post.time}"></p>
+
+</div>
 </body>
 </html>
