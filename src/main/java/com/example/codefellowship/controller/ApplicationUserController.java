@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.view.RedirectView;
 
+import java.security.Principal;
 
 
 @Controller
@@ -70,5 +71,16 @@ public class ApplicationUserController {
                 String username = principal.toString();
             }
         return "profile";
+    }
+
+    @PostMapping("/follow")
+    public RedirectView followFunction(Principal p, int id){
+        ApplicationUser user=applicationUserRepository.findByUsername(p.getName());
+        ApplicationUser followedUser=applicationUserRepository.findById(id).orElseThrow();
+
+        followedUser.getFollowers().add(user);
+        applicationUserRepository.save(followedUser);
+        System.out.println(user.getFollowing());
+        return new RedirectView("/");
     }
 }

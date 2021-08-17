@@ -10,8 +10,15 @@ public class Post {
     private int id;
     private String body;
     private String time;
+
     @ManyToOne
-   public ApplicationUser user;
+//    @JoinColumn(name = "user-id")
+    public ApplicationUser user;
+
+
+
+
+
 
     public Post(){
 
