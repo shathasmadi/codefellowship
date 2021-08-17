@@ -3,6 +3,8 @@ package com.example.codefellowship.controller;
 import com.example.codefellowship.model.ApplicationUser;
 import com.example.codefellowship.repository.ApplicationUserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -12,8 +14,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.view.RedirectView;
 
-import java.util.Date;
-import java.util.Optional;
+
 
 @Controller
 public class ApplicationUserController {
@@ -23,6 +24,7 @@ public class ApplicationUserController {
 
     @Autowired
     BCryptPasswordEncoder bCryptPasswordEncoder   ;
+
 
 
     @GetMapping("/login")
@@ -46,9 +48,27 @@ public class ApplicationUserController {
 
         @GetMapping("/users/{id}")
           public String profilePage(Model modelOne, @PathVariable("id") int id){
-
-            modelOne.addAttribute("user",  applicationUserRepository.findById(id).get());
+            Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+            if (principal instanceof UserDetails) {
+                String username = ((UserDetails)principal).getUsername();
+                modelOne.addAttribute("username" , username);
+                modelOne.addAttribute("user",  applicationUserRepository.findById(id).get());
+            } else {
+                String username = principal.toString();
+            }
             return "user";
 
    }
+        @GetMapping("/profile")
+        public String profile(Model modelOne){
+            Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+            if (principal instanceof UserDetails) {
+                String username = ((UserDetails)principal).getUsername();
+                modelOne.addAttribute("username" , username);
+                modelOne.addAttribute("user" , applicationUserRepository.findByUsername(username));
+            } else {
+                String username = principal.toString();
+            }
+        return "profile";
+    }
 }
