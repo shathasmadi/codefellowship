@@ -10,9 +10,9 @@ public class Post {
     private int id;
     private String body;
     private String time;
-    @ManyToOne
-   public ApplicationUser user;
 
+    @ManyToOne
+    public ApplicationUser user;
     public Post(){
 
     }

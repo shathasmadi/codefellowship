@@ -16,5 +16,17 @@
 <p>Date Of Birth: <span th:text="${user.dateOfBirth}"></span></p>
 <p>Bio: <span th:text="${user.bio}"></span></p>
 
+
+
+<form method="post" th:action="'/follow/'+${user.id}">
+    <input type="submit" value="Follow">
+
+
+</form>
+
+
+
+
+
 </body>
 </html>

@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.view.RedirectView;
 
+import java.security.Principal;
+import java.util.ArrayList;
 
 
 @Controller
@@ -71,4 +73,32 @@ public class ApplicationUserController {
             }
         return "profile";
     }
-}
+
+    @PostMapping("/follow/{id}")
+    public RedirectView followFunction(Principal p,@PathVariable("id") int id){
+        ApplicationUser user=applicationUserRepository.findByUsername(p.getName());
+        System.out.println(user.getFollowing().toString());
+        ApplicationUser followedUser=applicationUserRepository.findById(id).get();
+        followedUser.getFollowers().add(user);
+        user.getFollowing().add(followedUser);
+        applicationUserRepository.save(followedUser);
+        applicationUserRepository.save(user);
+        return new RedirectView("/users/{id}");
+    }
+
+    @GetMapping("/feed")
+    public String feed(Principal p,Model modelOne){
+            ApplicationUser user=applicationUserRepository.findByUsername(p.getName());
+            modelOne.addAttribute("user",user);
+
+        return "feed";
+    }
+
+    @GetMapping("/findusers")
+    public String findUsers(Model modelOne){
+        ArrayList<ApplicationUser> users= (ArrayList<ApplicationUser>)applicationUserRepository.findAll();
+        modelOne.addAttribute("users",users);
+        return "findusers";
+    }
+    }
+

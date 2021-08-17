@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div th:replace="header :: header">...</div>
+<div th:each="followed:${user.following}">
+    <div  th:each="post:${followed.posts}">
+                <p >Posted on <span th:text="${post.time}"></span> by <a th:href="'/users/'+${followed.id}">Show Profile</a></p>
+                <p th:text="${post.body}"></p>
+                </div>
+
+                </div>
+
+</body>
+</html>

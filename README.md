@@ -4,7 +4,8 @@
 - rout "/login" ; you can log in to your acoount.
 - rout "/signup" ; you can create a new account.
 - rout "/users" ; the user can see the information about user who login.
-
+- rout "/feed" ; this page to display all posts of users in followed.
+- rout "/finduser";display all the users in this application.
 ## run this app:
 
 clone the repo: git clone git@github.com:shathasmadi/codefellowship.git
