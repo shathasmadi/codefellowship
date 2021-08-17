@@ -12,14 +12,7 @@ public class Post {
     private String time;
 
     @ManyToOne
-//    @JoinColumn(name = "user-id")
     public ApplicationUser user;
-
-
-
-
-
-
     public Post(){
 
     }

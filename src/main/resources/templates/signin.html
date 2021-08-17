@@ -5,6 +5,7 @@
     <title>Title</title>
 </head>
 <body>
+<div th:replace="header :: header">...</div>
 <form  METHOD="post" action="perform_login"  >
   <label for="username">Your User Name</label>
   <input placeholder="Enter your name"  id="username" name="username" />

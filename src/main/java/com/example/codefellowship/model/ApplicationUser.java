@@ -27,19 +27,16 @@ public class ApplicationUser implements UserDetails {
     @OneToMany(mappedBy="user")
     public List<Post> posts;
 
-    @ManyToMany
+    @ManyToMany(cascade = {CascadeType.ALL} )
     @JoinTable(
-            name = "following Relation",
-            joinColumns = {@JoinColumn(name = "follower")},
-            inverseJoinColumns = {@JoinColumn(name = "following")}
+            name = "following_followers",
+            joinColumns = {@JoinColumn(name = "followers_id")},
+            inverseJoinColumns = {@JoinColumn(name = "following_id")}
     )
-    Set<ApplicationUser> followers = new HashSet<>();
-
-    @ManyToMany(mappedBy = "followers")
     Set<ApplicationUser> following = new HashSet<>();
 
-
-
+    @ManyToMany
+    Set<ApplicationUser> followers = new HashSet<>();
 
     public ApplicationUser() {
 
